@@ -1,0 +1,72 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Packaging files:
+*.egg*
+
+# Sphinx docs:
+build
+
+# SQLite3 database files:
+*.db
+*.sqlite3
+*.sqlite
+
+# Logs:
+*.log*
+
+# Environment variables
+.env
+
+# Django stuff:
+*.mo
+*.pot
+
+# Eclipse
+.project
+.pydevproject
+.settings
+
+# Linux Editors
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+*.swp
+*.swo
+.ropeproject/
+
+# Pycharm
+.idea/
+.pycharm-bash
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Django
+copernicus/media/*
+
+# Coverage and analysis reports/logs
+.coverage
+.sonar
+coverage.xml
+cover
+.tox/
+
+# Automation
+env/
+behave.ini
+page_load_time.txt
+
+# Docker compose
+docker-compose.override.yml

@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  
+  api:
+    image: jorlugaqui/pycon:latest
+    command: ./scripts/run_api.sh
+    depends_on:
+      - general-worker
+    env_file: .env
+
+  general-worker:
+    image: jorlugaqui/pycon:latest
+    command: ./scripts/run_worker.sh
+    depends_on:
+      - rabbit 
+    env_file: .env
+
+  rabbit:
+    image: rabbitmq:3.7.1-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: ${PYCON_RABBIT_USER}
+      RABBITMQ_DEFAULT_PASS: ${PYCON_RABBIT_PASS}
+
+  db:
+    image: postgres:10.1-alpine
+    environment:
+      POSTGRES_USER: ${PYCON_DB_USER}
+      POSTGRES_PASSWORD: ${PYCON_DB_PASSWORD}
+      POSTGRES_DB: ${PYCON_DB_NAME}
+    volumes:
+       - db-data:/var/lib/postgresql/data
+
+
+volumes:
+  db-data:
