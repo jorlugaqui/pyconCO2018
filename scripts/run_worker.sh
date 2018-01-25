@@ -1,3 +1,4 @@
 #!/bin/sh
 
-celery -A celery.celeryconf worker -Q default -l info
+python3.6 manage.py migrate
+celery -A pycon.celery worker -Q default -l info

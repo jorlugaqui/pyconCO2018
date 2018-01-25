@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  api:
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+
+  general-worker:
+    volumes:
+      - .:/app
+
+  rabbit:
+    ports:
+      - "15672:15672"
