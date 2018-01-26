@@ -1,10 +1,10 @@
 PROJECT_NAME=pycon
 
 build: 
-	docker build -t jorlugaqui/pycon:latest .
+	sudo docker build -t jorlugaqui/pycon:latest .
 
 tox:
-	docker run --rm --env-file .env jorlugaqui/pycon:latest tox
+	sudo docker run --rm --env-file .env jorlugaqui/pycon:latest tox
 
 rm-env: 
 	rm .env.tmp
@@ -22,7 +22,13 @@ copy-compose-override:
 	cp docker-compose.override.local.yml docker-compose.override.yml
 
 run:
-	docker-compose up
+	sudo docker-compose up
+
+down:
+	sudo docker-compose down
+
+status:
+	sudo docker ps -a
 
 replace-env: subst rm-env
 

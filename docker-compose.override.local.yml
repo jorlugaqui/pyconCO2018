@@ -15,3 +15,7 @@ services:
   rabbit:
     ports:
       - "15672:15672"
+
+  db:
+    ports:
+      - "5432:5432"
