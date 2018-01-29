@@ -71,3 +71,7 @@ page_load_time.txt
 
 # Docker compose
 docker-compose.override.yml
+
+# Jupyter
+.ipynb_checkpoints/
+
