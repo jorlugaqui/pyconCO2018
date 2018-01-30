@@ -1,17 +1,19 @@
 FROM alpine:latest
 MAINTAINER Jorge Galvis <jorlugaqui@gmail.com>
 
-RUN apk add --no-cache python3 ca-certificates python3-dev postgresql-client\
-  postgresql-dev build-base\
-  && pip3 install -U pip
-
-WORKDIR /app
-
 COPY requirements.txt requirements.txt
 
-RUN pip3 install --no-cache-dir -Ur requirements.txt && rm -r /root/.cache
+RUN apk add --no-cache libstdc++ lapack-dev \
+        python3 ca-certificates postgresql-client && \
+    apk add --no-cache \
+        --virtual=.build-dependencies \
+        g++ gfortran musl-dev \
+        python3-dev \
+        postgresql-dev && \ 
+    pip3 install -U pip && \
+    pip3 install --no-cache-dir -Ur requirements.txt &&\
+    rm -r /root/.cache && \
+    apk del .build-dependencies
 
+WORKDIR /app
 COPY . /app
-
-RUN chown -R nobody:nobody /app
-USER nobody

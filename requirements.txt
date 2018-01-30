@@ -1,6 +1,15 @@
+# Dev team
 Django==2.0
 celery==4.1.0
 psycopg2==2.7.3.2
 django-celery-beat==1.1.0
 django-celery-results==1.0.1
 kombu==4.1.0
+djangorestframework==3.7.7
+djoser==1.1.5
+
+# Data team
+numpy==1.14.0
+scipy==1.0.0
+scikit-learn==0.19.1
+

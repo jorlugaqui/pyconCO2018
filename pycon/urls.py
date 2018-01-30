@@ -14,8 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
+from iris.views import IrisPredictor, Iris
+
 
 urlpatterns = [
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('admin/', admin.site.urls),
+    path('iris/', IrisPredictor.as_view(), name='iris-predictor'),
+    path('iris/<int:pk>/', Iris.as_view(), name='iris')
 ]
