@@ -19,5 +19,6 @@ class IrisPredictor(generics.CreateAPIView):
 
 
 class Iris(generics.RetrieveAPIView):
+
     serializer_class = ResultSerializer
     queryset = Result.objects.all()

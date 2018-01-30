@@ -7,3 +7,6 @@ from .models import Result
 class ResultAdmin(admin.ModelAdmin):
     readonly_fields = ('petal_width', 'petal_length', 'classification', 'created_at')
     list_display = readonly_fields
+
+    def has_add_permission(self, request):
+        return False
