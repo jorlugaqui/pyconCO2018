@@ -5,13 +5,14 @@ from .models import Result, IrisModel, IrisModelConfig
 
 logger = logging.getLogger(__name__)
 
+
 @task
 def classify_iris(pk):
     result = None
 
     try:
         result = Result.objects.get(pk=pk)
-    except Result.DoesNotExist as e:
+    except Result.DoesNotExist:
         logger.exception('No result record found in the DB')
         return
 

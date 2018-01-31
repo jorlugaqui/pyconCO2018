@@ -7,7 +7,7 @@ from .tasks import classify_iris
 from .models import Result
 
 
-class IrisPredictor(generics.CreateAPIView):
+class IrisPredictorView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = ResultSerializer(data=request.data)
@@ -18,7 +18,7 @@ class IrisPredictor(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class Iris(generics.RetrieveAPIView):
+class IrisView(generics.RetrieveAPIView):
 
     serializer_class = ResultSerializer
     queryset = Result.objects.all()

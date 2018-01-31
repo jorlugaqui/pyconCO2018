@@ -33,22 +33,22 @@ class IrisModelConfig(object):
 
 class IrisModel(object):
 
-    instance = None
+    _instance = None
 
     def __init__(self):
-        if self.instance is not None:
+        if self._instance is not None:
             raise ValueError('The model was already loaded')
 
     @classmethod
     def get_instance(cls):
-        if cls.instance is None:
+        if cls._instance is None:
             try:
                 model_path = os.path.join(settings.BASE_DIR, 'data', IrisModelConfig.MODEL_PKL)
                 with open(model_path, 'rb') as model:
-                    cls.instance = pickle.load(model)
+                    cls._instance = pickle.load(model)
             except IOError as e:
                 logger.exception('Serialized model was not found')
             except pickle.UnpicklingError as e:
                 logger.exception('Error while loading the model')
 
-        return cls.instance
+        return cls._instance
