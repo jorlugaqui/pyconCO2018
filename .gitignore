@@ -23,6 +23,7 @@ build
 # Environment variables
 .env
 .credentials
+.credentials_ci
 
 # Django stuff:
 *.mo

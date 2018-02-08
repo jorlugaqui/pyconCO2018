@@ -3,11 +3,17 @@ PROJECT_NAME=pycon
 build: 
 	sudo docker build -t jorlugaqui/pycon:latest .
 
-tox:
-	sudo docker run --rm --env-file .env jorlugaqui/pycon:latest tox
+test:
+	sudo docker-compose -f docker-compose.ci.yml run api-test python3.6 manage.py test --verbosity=2
 
-rm-env: 
+rm-tmp-env: 
 	rm .env.tmp
+
+rm-env:
+	rm .env
+
+rm-override:
+	rm -f docker-compose.override.yml
 
 subst:
 	envsubst < .env.tmp > .env
@@ -25,18 +31,21 @@ run:
 	sudo docker-compose up
 
 down:
-	sudo docker-compose down
+	sudo docker-compose down 
+
+ci-down:
+	sudo docker-compose -f docker-compose.ci.yml down
 
 status:
 	sudo docker ps -a
 
-replace-env: subst rm-env
+replace-env: rm-env subst rm-tmp-env
 
 copy-env: env-tmp replace-env
 
 copy-env-ci: env-tmp-ci replace-env
 
-dev: copy-env build copy-compose-override run
+dev: copy-env build rm-override copy-compose-override run
 
-tests: copy-env-ci build tox
+ci: copy-env-ci replace-env build rm-override test ci-down
 

@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  api-test:
+    image: jorlugaqui/pycon:latest
+    depends_on:
+      - db-test
+    env_file: .env
+    networks:
+      - tests
+
+  db-test:
+    image: postgres:10.1-alpine
+    environment:
+      POSTGRES_USER: ${PYCON_DB_USER}
+      POSTGRES_PASSWORD: ${PYCON_DB_PASSWORD}
+      POSTGRES_DB: ${PYCON_DB_NAME}
+    volumes:
+       - db-data-test:/var/lib/postgresql/data
+    env_file: .env
+    networks:
+      - tests
+
+volumes:
+  db-data-test:
+
+networks:
+  tests:
