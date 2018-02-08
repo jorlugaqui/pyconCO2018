@@ -28,11 +28,11 @@ class IrisModelConfig(object):
         2: 'VIRGINICA'
     }
 
-    MODEL_PKL = 'iris_predictor.pkl'
+    MODEL_PKL = 'iris_predictor.pkl'  # Expected name of the model, consider using a env variable
 
 
 class IrisModel(object):
-
+    """Return the model as singleton"""
     _instance = None
 
     def __init__(self):

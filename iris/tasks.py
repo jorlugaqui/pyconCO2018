@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 @task
 def classify_iris(pk):
+    """Call the model and predict classification"""
     result = None
 
     try:

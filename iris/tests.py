@@ -47,12 +47,12 @@ class IrisModelConfigTestCase(TestCase):
 class IrisModelTestCase(TestCase):
 
     def test_load_model(self):
-        # TODO: If model gets bigger probably we should mock open call
+        # TODO: If model gets bigger probably we should mock open (built in) call
         self.assertTrue(IrisModel.get_instance() is not None)
         self.assertTrue(IrisModel._instance is not None)
 
         with self.assertRaises(ValueError):
-            IrisModel()
+            IrisModel()  # Model was already loaded, might be problematic when the model gets updated
 
 
 @mock.patch('iris.views.classify_iris.delay', return_value=None)
@@ -119,7 +119,7 @@ class IrisModelTaskTestCase(TestCase):
         self.prediction = Result.objects.create(petal_width=2.0, petal_length=2.0)
 
     def test_predict_iris(self):
-        # TODO: We probably should mock predict method
+        # TODO: We probably should mock predict method (performance)
         classify_iris(self.prediction.pk)
         self.prediction.refresh_from_db()
         self.assertEqual(self.prediction.classification, 'VIRGINICA')
