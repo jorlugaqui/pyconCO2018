@@ -116,7 +116,7 @@ class IrisViewTestCase(TestCase):
 class IrisModelTaskTestCase(TestCase):
 
     def setUp(self):
-        self.prediction = Result.objects.create(petal_width=2.0, petal_length=2.0)
+        self.prediction = Result.objects.create(petal_width=1.8, petal_length=5.1)
 
     def test_predict_iris(self):
         # TODO: We probably should mock predict method (performance)
