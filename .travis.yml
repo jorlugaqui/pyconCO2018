@@ -1,0 +1,25 @@
+language: python
+
+python:
+  - "3.6"
+services: postgresql
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c "CREATE DATABASE pycon;" -U postgres
+
+script:
+  - python3.6 manage.py test
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: 3quxfFDnLnw/ZmwDrqTSO0guXYM6EmbA0wc5YCV6LiMbOUsNrDSQJzVyWnfOQPrbsA66Pwt7gn6uPmaIWj2iww9YluDHpYbx0lTk4iiw+G4HKQCCyDvylSRNui4Jv/FvKg6+mXn09GtNDbrLNYw7ctP2cq0sUAwJhSN52WY6RLU+0X2EsIP7JPoivHkCG7v4UAmSP6UcFftdakZg1DRKnKLVwAK6EuO0Jk1VnvbwBEnfH1LmH0+MPkSry2uR/FP1LPvcv9LT9Im7r1Ouza8p8Uwr9iP4vBvchqEN4DQMqqwL6zCukrEhiQItVZ9P7bbeZaINB77dWTAzKkx9EvQ6YidqzZS2EvQ0lVInnmEur/ofx55iatHaBMKjelvNfDUSnod8SdV+rxj4qQ5Ca4IzVv/vIDlVhD1UrD49h1bVzkHyKU3GeGwD8bVGXplaMWqB9Fhk+zN8semtOw4oY0PWf5CCMOBS/jh47JnfOpBovpsRzIrh/zX+xlcgKYzOy1UC9kRQkUr0rbFbkAC9A0mkbZpWJONieQH47U9wsEMpTofH3HVGKKhhACHrAdFeLeY+tQ8zHjAov66bQUdCLSRCdeN4CetfRqFMhyY/IzKiD/0dzEepqSZVTGbhs/Ue96LckmKHpvYuhmr9WFW8mmyGevFB5LH/Hj6IjAkWjD+dns4=
+  app: whispering-shelf-22641
+  on:
+    repo: jorlugaqui/pycon
+  run:
+    - "python3.6 manage.py migrate"
+    - restart
