@@ -152,10 +152,6 @@ if not BROKER_URL:
         vhost=os.environ.get('PYCON_RABBIT_VHOST', '')
     )
 
-BROKER_HEARTBEAT = '?heartbeat=30'
-if not BROKER_URL.endswith(BROKER_HEARTBEAT):
-    BROKER_URL += BROKER_HEARTBEAT
-
 BROKER_POOL_LIMIT = 1
 BROKER_CONNECTION_TIMEOUT = 10
 
@@ -200,13 +196,18 @@ REST_FRAMEWORK = {
 }
 
 if not DEBUG:
+    ALLOWED_HOSTS = ['whispering-shelf-22641.herokuapp.com']
+
     import dj_database_url
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL')
         )
     }
+
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     MIDDLEWARE.insert(0, 'whitenoise.middleware.WhiteNoiseMiddleware')
     STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-    ALLOWED_HOSTS = ['whispering-shelf-22641.herokuapp.com']
+
+    BROKER_URL = os.environ.get('CLOUDAMQP_URL', '')
+    BROKER_POOL_LIMIT = 3
