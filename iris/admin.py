@@ -9,4 +9,4 @@ class ResultAdmin(admin.ModelAdmin):
     list_display = readonly_fields
 
     def has_add_permission(self, request):
-        return False
+        return True
